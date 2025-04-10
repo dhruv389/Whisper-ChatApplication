@@ -1,0 +1,117 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en" ng-app="chatApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat App</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- AngularJS (only one version needed) -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-animate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-messages.min.js"></script>
+
+  <!-- Your Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body >
+    
+
+
+
+    <nav class="glass-effect px-4 py-5 fixed w-full z-50" ng-controller="NavbarController">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/Client/index.html#!/" class="flex items-center space-x-2">
+            <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-lg">
+              <i class="fas fa-comments text-white"></i>
+            </div>
+            <span class="text-xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">WhisperChat</span>
+        </a>
+        
+          <div class="flex items-center space-x-4">
+            <!-- If user is signed in -->
+            <div ng-if="user" class="flex items-center space-x-4">
+              <a href="#!/room-page" class="btn-gradient px-4 py-1 rounded-full text-white flex items-center">
+                <i class="fas fa-comments mr-2"></i> Let's Chat
+              </a>
+              <div class="flex items-center space-x-2">
+                <img ng-src="{{user.photoURL || '/api/placeholder/32/32'}}" class="w-8 h-8 rounded-full border-2 border-indigo-300" alt="User Image">
+                <span class="text-white hidden md:inline">{{user.displayName}}</span>
+              </div>
+              <button ng-click="signOut()" class="text-white hover:text-pink-300 transition-colors">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="hidden md:inline ml-1">Sign Out</span>
+              </button>
+            </div>
+      
+            <!-- If no user is signed in -->
+            <div ng-if="!user">
+              <button ng-click="signInWithGoogle()" class="btn-gradient text-white px-6 py-2 rounded-full flex items-center">
+                <i class="fab fa-google mr-2"></i> Sign In with Google
+              </button>
+            </div>
+      
+            <button class="md:hidden ml-4 text-xl" ng-click="toggleMobileMenu()">
+              <i class="fas" ng-class="{'fa-bars': !mobileMenuOpen, 'fa-times': mobileMenuOpen}"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Mobile menu (shown/hidden based on state) -->
+        <div ng-if="mobileMenuOpen" class="md:hidden absolute top-full left-0 right-0 glass-effect py-4 px-6 shadow-lg">
+          <div ng-if="user" class="flex flex-col space-y-4">
+            <a href="#!/room-page" class="text-white py-2 flex items-center">
+              <i class="fas fa-comments mr-2"></i> Let's Chat
+            </a>
+            <div class="flex items-center space-x-2 py-2">
+              <img ng-src="{{user.photoURL || '/api/placeholder/32/32'}}" class="w-8 h-8 rounded-full" alt="User Image">
+              <span class="text-white">{{user.displayName}}</span>
+            </div>
+            <button ng-click="signOut()" class="text-white py-2 flex items-center">
+              <i class="fas fa-sign-out-alt mr-2"></i> Sign Out
+            </button>
+          </div>
+          <div ng-if="!user" class="py-2">
+            <button ng-click="signInWithGoogle()" class="text-white flex items-center">
+              <i class="fab fa-google mr-2"></i> Sign In with Google
+            </button>
+          </div>
+        </div>
+      </nav>
+
+
+
+
+
+
+
+
+  <!-- Angular View Container -->
+  <div ng-view></div>
+
+  <!-- Firebase (compat mode for AngularJS) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+  <!-- Your App Scripts -->
+  <script src="./js/route.js"></script>
+  <script src="./js/controllers.js"></script>
+  <script src="./js/firebase-auth.js"></script>
+  <script src="./js/authService.js"></script>
+  <!-- Optional -->
+  <!-- <script src="./js/services.js"></script> -->
+
+</body>
+</html>

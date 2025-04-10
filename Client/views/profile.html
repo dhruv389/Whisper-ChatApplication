@@ -1,0 +1,36 @@
+<!-- views/profile.html -->
+<div class="p-6 max-w-xl mx-auto" ng-controller="ProfileController">
+    <h2 class="text-2xl font-bold mb-4">User Profile</h2>
+    <p class="text-gray-400 mb-2">Logged in as: <strong> {{user.displayName}}</strong></p>
+
+    <form ng-submit="saveUser()">
+      <div class="mb-4">
+        <label class="block font-medium">Email:</label>
+        <input type="email" ng-model="user.email" class="w-full text-black p-2 border rounded" required />
+      </div>
+  
+      <div class="mb-4">
+        <label class="block font-medium">Name:</label>
+        <input type="text" ng-model="user.name" class="w-full text-black p-2 border rounded" />
+      </div>
+  
+      <div class="mb-4">
+        <label class="block font-medium">Image Link:</label>
+        <input type="text" ng-model="user.imageLink" class="w-full text-black p-2 border rounded" />
+      </div>
+  
+      <div class="mb-4">
+        <label class="block font-medium">Bio:</label>
+        <textarea ng-model="user.bio" class="w-full text-black p-2 border rounded"></textarea>
+      </div>
+  
+      <div class="flex gap-4">
+        <button type="button" ng-click="fetchUser()" class="bg-blue-500 text-white px-4 py-2 rounded">Fetch User</button>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Save</button>
+      </div>
+  
+      <div class="mt-4 text-red-600" ng-if="error">{{ error }}</div>
+      <div class="mt-4 text-green-600" ng-if="success">{{ success }}</div>
+    </form>
+  </div>
+  

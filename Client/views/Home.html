@@ -1,0 +1,286 @@
+
+  <!-- Angular App -->
+  <div ng-controller="ChatAppController">
+    <!-- Navigation -->
+   
+      
+
+    <!-- Mobile Menu -->
+    
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20" id="hero">
+      <div class="container md:pt-[4.5rem] mx-auto px-4">
+        <div class="flex flex-col md:flex-row  md:justify-around items-center">
+          <div class=" md:ml-[3rem] md:w-[45%] fade-in active">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              <span class="block">Private Chat Rooms</span>
+              <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">For Friends & Family</span>
+            </h1>
+            
+            <p class="text-gray-300 text-lg mb-8">
+              Create exclusive chat spaces with custom stickers, voice messages, 
+              and fun message effects. Share moments in a secure, invitation-only environment.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <button ng-click="openModal('create')" class="btn-gradient text-white px-8 py-4 rounded-full text-lg font-medium">
+                Create a Room
+              </button>
+              
+              <a href="#how-it-works" class="border border-white/20 hover:border-white/40 px-8 py-4 rounded-full text-lg font-medium transition-all text-center">
+                Learn More
+              </a>
+            </div>
+          </div>
+          
+          <div class="md:w-[40%] mt-12 md:mt-0 relative">
+            <div class="relative animate-float">
+                <!-- Main chat interface mockup -->
+                <div class="glass-effect rounded-2xl p-4 mx-auto max-w-md">
+                  <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center space-x-2">
+                      <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="text-sm text-gray-400">Family Chat</div>
+                    <div class="w-6"></div>
+                  </div>
+                  
+                  <!-- Chat messages -->
+                  <div class="space-y-4 mb-4">
+                    <!-- Message 1 -->
+                    <div class="flex items-start">
+                      <div class="w-8 h-8 rounded-full bg-blue-600 flex-shrink-0 flex items-center justify-center">M</div>
+                      <div class="ml-2 glass-effect rounded-2xl rounded-tl-none p-3 max-w-xs">
+                        <p class="text-sm">Hey everyone! Who's up for movie night this weekend? 🍿</p>
+                        <p class="text-xs text-gray-400 mt-1">11:45 AM</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Message 2 -->
+                    <div class="flex items-start justify-end">
+                      <div class="mr-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl rounded-tr-none p-3 max-w-xs">
+                        <p class="text-sm">Count me in! What should we watch?</p>
+                        <p class="text-xs text-white/70 mt-1">11:47 AM</p>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-purple-600 flex-shrink-0 flex items-center justify-center">S</div>
+                    </div>
+                    
+                    <!-- Message 3 with sticker -->
+                    <div class="flex items-start">
+                      <div class="w-8 h-8 rounded-full bg-green-600 flex-shrink-0 flex items-center justify-center">J</div>
+                      <div class="ml-2 glass-effect rounded-2xl rounded-tl-none p-3">
+                        <img src="https://media.giphy.com/media/KzM1lAfJjCWNq/giphy.gif" alt="Excited sticker" class="w-24 rounded-xl h-24 ">
+                        <p class="text-xs text-gray-400 mt-1">11:50 AM</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Chat input -->
+                  <div class="flex items-center glass-effect rounded-full p-2">
+                    <button class="p-2 rounded-full hover:bg-white/10">
+                      <i class="fas fa-plus text-gray-400"></i>
+                    </button>
+                    <input type="text" placeholder="Type a message..." class="bg-transparent border-0 flex-1 focus:outline-none px-3 py-2 text-sm">
+                    <button class="p-2 rounded-full hover:bg-white/10">
+                      <i class="fas fa-paper-plane text-gray-400"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Decorative stickers -->
+                <div class="sticker left-0 top-10" style="--rotation: -15deg">
+                  <img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" alt="Sticker" class="w-16 rounded-xl h-16">
+                </div>
+                <div class="sticker right-0 bottom-20" style="--rotation: 10deg">
+                  <img src="https://media.giphy.com/media/lRoouslurnhcqn9Byb/giphy.gif" alt="Sticker" class="w-16 rounded-xl h-16">
+                </div>
+                <div class="sticker left-20 bottom-0" style="--rotation: 5deg">
+                  <img src="https://media.giphy.com/media/3ohhwGYwGLuuAjhJMk/giphy.gif" alt="Sticker" class="w-14 rounded-xl h-14">
+                </div>
+              </div>
+              
+              <!-- Floating badges -->
+              <div class="absolute -bottom-4 -left-4 glass-effect px-4 py-2 rounded-full text-sm">
+                <div class="flex items-center">
+                  <i class="fas fa-shield-alt text-green-400 mr-2"></i>
+                  End-to-end encrypted
+                </div>
+              </div>
+              
+              <div class="absolute -top-4 -right-4 glass-effect px-4 py-2 rounded-full text-sm">
+                <div class="flex items-center">
+                  <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                  Real-time messaging
+                </div>
+              </div>
+          </div>
+
+
+
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+   
+
+    <!-- How It Works -->
+    <section class="py-20" id="how-it-works">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              How It Works
+            </span>
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Getting started is simple. Create a room, share the key, and start chatting in minutes.
+          </p>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center md:space-x-8 space-y-12 md:space-y-0">
+          <!-- Step 1 -->
+          <div class="flex flex-col items-center max-w-xs">
+            <div class="glass-effect w-20 h-20 rounded-full flex items-center justify-center mb-6 relative">
+              <span class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">1</span>
+              <div class="absolute -right-2 -top-2 w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+                <i class="fas fa-plus text-white text-xs"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Create a Room</h3>
+            <p class="text-gray-400 text-center">Set up your private chat room and get a unique access key.</p>
+          </div>
+          
+          <div class="hidden md:block">
+            <i class="fas fa-arrow-right text-2xl text-gray-500"></i>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="flex flex-col items-center max-w-xs">
+            <div class="glass-effect w-20 h-20 rounded-full flex items-center justify-center mb-6 relative">
+              <span class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">2</span>
+              <div class="absolute -right-2 -top-2 w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                <i class="fas fa-share-alt text-white text-xs"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Share the Key</h3>
+            <p class="text-gray-400 text-center">Invite your friends and family by sharing your room key.</p>
+          </div>
+          
+          <div class="hidden md:block">
+            <i class="fas fa-arrow-right text-2xl text-gray-500"></i>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="flex flex-col items-center max-w-xs">
+            <div class="glass-effect w-20 h-20 rounded-full flex items-center justify-center mb-6 relative">
+              <span class="text-2xl font-bold bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent">3</span>
+              <div class="absolute -right-2 -top-2 w-8 h-8 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center">
+                <i class="fas fa-comments text-white text-xs"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Start Chatting</h3>
+            <p class="text-gray-400 text-center">Enjoy private conversations with fun features and effects.</p>
+          </div>
+        </div>
+        
+       
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+   
+
+    <!-- FAQ Section -->
+    <section class="py-20" id="faq">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Frequently Asked Questions
+            </span>
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Got questions? We've got answers.
+          </p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-4" ng-repeat="item in faqItems">
+            <div 
+              class="glass-effect rounded-xl p-5 transition-all cursor-pointer"
+              ng-class="{'bg-slate-800/80': item.isOpen}"
+              ng-click="toggleFaq($index)"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-semibold text-lg">{{item.question}}</h3>
+                <i class="fas" ng-class="{'fa-chevron-down': !item.isOpen, 'fa-chevron-up': item.isOpen}"></i>
+              </div>
+              <div ng-if="item.isOpen" class="mt-4 text-gray-300">
+                {{item.answer}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+
+
+    <!-- Footer -->
+    <footer class="py-10 bg-slate-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <div class="flex items-center space-x-2">
+              <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-lg">
+                <i class="fas fa-comments text-white"></i>
+              </div>
+              <span class="text-xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">WhisperChat</span>
+            </div>
+          </div>
+          
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+        
+        <hr class="border-gray-800 my-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 mb-4 md:mb-0">&copy; 2025 WhisperChat. All rights reserved.</p>
+          
+          <div class="flex flex-wrap justify-center md:justify-end space-x-8">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    </div>
+
+  
+
+    
+  
+      <!-- Register Modal -->
+     
+     
+    
+  
+    <!-- Angular App Script -->
+   

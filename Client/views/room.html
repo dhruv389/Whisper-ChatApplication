@@ -1,0 +1,249 @@
+<div ng-controller="RoomMainController" class="w-screen mx-auto flex justify-center flex-col items-center  pt-[5rem] py-[4rem]">
+    <!-- Header with animated elements -->
+    <div class="mb-12 text-center relative">
+      <div class="absolute top-0 left-1/4 w-32 h-32 bg-purple-500 rounded-full opacity-10 blur-3xl floating"></div>
+      <div class="absolute top-12 right-1/4 w-32 h-32 bg-blue-500 rounded-full opacity-10 blur-3xl floating" style="animation-delay: 2s;"></div>
+      
+      <h1 class="text-5xl font-bold mb-3 gradient-text">
+        <i class="fas fa-meteor mr-3"></i>Cosmic Chat Rooms
+      </h1>
+      <p class="text-indigo-200 text-lg max-w-2xl mx-auto">
+        Create or join vibrant virtual spaces where ideas flow freely through the cosmos
+      </p>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex flex-col items-center w-[60%]">
+      <!-- Toggle buttons -->
+      <div class="flex space-x-8 mb-8">
+        <div class="form-tab cursor-pointer p-3 rounded-lg glass-light text-center w-44" 
+             ng-class="{'active': tabActive === 'create'}"
+             ng-click="setTab('create')">
+          <i class="fas fa-plus-circle text-xl text-blue-400 mb-2"></i>
+          <h3 class="font-semibold text-lg">Create Room</h3>
+        </div>
+        
+        <div class="form-tab cursor-pointer p-3 rounded-lg glass-light text-center w-44"
+             ng-class="{'active': tabActive === 'join'}"
+             ng-click="setTab('join')">
+          <i class="fas fa-key text-xl text-green-400 mb-2"></i>
+          <h3 class="font-semibold text-lg">Join Room</h3>
+        </div>
+      </div>
+      
+      <!-- Glass panel containing both forms -->
+      <div class="glass rounded-2xl w-full max-w-lg p-1 relative">
+        <div class="absolute inset-0 rounded-2xl neon-border opacity-20"></div>
+        
+        <!-- Create Room Form -->
+        <div ng-show="tabActive === 'create'" class="p-6 form-transition rounded-2xl modal-animation-enter">
+          <h3 class="text-2xl font-semibold mb-6 gradient-text">
+            <i class="fas fa-rocket mr-2"></i>Launch a New Room
+          </h3>
+          
+          <form ng-submit="createRoom()">
+            <div class="mb-4">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-space-shuttle mr-1"></i> Group Title
+              </label>
+              <input ng-model="room.groupTitle" 
+                     placeholder="Enter a cosmic name for your room"
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required>
+            </div>
+            
+            <div class="mb-5">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-user-astronaut mr-1"></i> Your Name
+              </label>
+              <input ng-model="room.name" 
+                     placeholder="Your space name" 
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required>
+            </div>
+            
+            <div class="mb-5">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-envelope mr-1"></i> Your Email
+              </label>
+              <input type="email" 
+                     ng-model="room.email" 
+                     placeholder="Your cosmic address" 
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-image mr-1"></i> Room Image
+              </label>
+              
+              <div class="flex items-center mb-2">
+                <label class="toggle-switch mr-3">
+                  <input type="checkbox" ng-model="useAiImage">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="text-sm">Use AI generated image</span>
+              </div>
+              
+              <div ng-if="!useAiImage">
+                <input ng-model="room.imageLink" 
+                       placeholder="URL to room image" 
+                       class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none">
+              </div>
+              
+              <div ng-if="useAiImage">
+                <div class="flex gap-2">
+                  <input ng-model="room.imagePrompt" 
+                         placeholder="Describe your cosmic image" 
+                         class="flex-1 p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none">
+                  <button type="button" 
+                          ng-click="generateImage('create')" 
+                          class="p-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                  </button>
+                </div>
+                <div ng-if="room.imageLink && room.imagePrompt" class="mt-3">
+                  <div class="preview-image rounded-lg overflow-hidden h-48 w-full">
+                    <img ng-src="{{room.imageLink}}" class="w-full h-full object-cover" alt="Room preview">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <button type="submit" 
+                      class="btn bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-lg text-white font-semibold transition">
+                <i class="fas fa-satellite-dish mr-2"></i> Create Room
+              </button>
+            </div>
+          </form>
+          
+          <!-- Success message -->
+          <div class="mt-6 glass-light p-4 rounded-lg" ng-if="room.secretKey">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-check-circle text-green-400 text-xl mr-2"></i>
+              <h4 class="font-semibold text-green-400">Room Successfully Created!</h4>
+            </div>
+            <p class="mb-2">Your Secret Key is:</p>
+            <div class="bg-indigo-900 bg-opacity-40 p-3 rounded-lg flex justify-between items-center">
+              <code class="font-mono text-indigo-300">{{ room.secretKey }}</code>
+              <button ng-click="copyToClipboard(room.secretKey)" class="text-indigo-400 hover:text-indigo-300">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p class="text-sm mt-2 text-indigo-300">
+              <i class="fas fa-info-circle mr-1"></i> Share this key with friends to let them join your room
+            </p>
+          </div>
+        </div>
+        
+        <!-- Join Room Form -->
+        <div ng-show="tabActive === 'join'" class="p-6 form-transition rounded-2xl modal-animation-enter">
+          <h3 class="text-2xl font-semibold mb-6 gradient-text">
+            <i class="fas fa-door-open mr-2"></i>Enter an Existing Room
+          </h3>
+          
+          <form ng-submit="joinRoom()">
+            <div class="mb-4">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-user mr-1"></i> Your Name
+              </label>
+              <input ng-model="joinData.name" 
+                     placeholder="Enter your cosmic name" 
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-envelope mr-1"></i> Your Email
+              </label>
+              <input type="email" 
+                     ng-model="user.email" 
+                     placeholder="Your email address" 
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required readonly>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-id-card mr-1"></i> Your Bio
+              </label>
+              <textarea ng-model="joinData.bio" 
+                      placeholder="Tell others about your cosmic journey" 
+                      class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none h-20"></textarea>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-image mr-1"></i> Profile Image
+              </label>
+              
+              <div class="flex items-center mb-2">
+                <label class="toggle-switch mr-3">
+                  <input type="checkbox" ng-model="useAiProfileImage">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="text-sm">Use AI generated avatar</span>
+              </div>
+              
+              <div ng-if="!useAiProfileImage">
+                <input ng-model="joinData.imageLink" 
+                       placeholder="URL to your profile image" 
+                       class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none">
+              </div>
+              
+              <div ng-if="useAiProfileImage">
+                <div class="flex gap-2">
+                  <input ng-model="joinData.imagePrompt" 
+                         placeholder="Describe your cosmic avatar" 
+                         class="flex-1 p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none">
+                  <button type="button" 
+                          ng-click="generateImage('join')" 
+                          class="p-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                  </button>
+                </div>
+                <div ng-if="joinData.imageLink && joinData.imagePrompt" class="mt-3">
+                  <div class="preview-image rounded-full overflow-hidden h-24 w-24 mx-auto">
+                    <img ng-src="{{joinData.imageLink}}" class="w-full h-full object-cover" alt="Avatar preview">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label class="block text-indigo-300 mb-1">
+                <i class="fas fa-key mr-1"></i> Room Secret Key
+              </label>
+              <input ng-model="joinData.secretKey" 
+                     placeholder="Enter the room's secret key" 
+                     class="w-full p-3 rounded-lg bg-indigo-900 bg-opacity-40 text-white input-field focus:outline-none" 
+                     required>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <button type="submit" 
+                      class="btn bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 px-6 py-3 rounded-lg text-white font-semibold transition">
+                <i class="fas fa-star mr-2"></i> Join Room
+              </button>
+            </div>
+          </form>
+          
+          <!-- Error message -->
+          <div class="mt-6 glass-light p-4 rounded-lg bg-red-900 bg-opacity-20" ng-if="error">
+            <div class="flex items-center">
+              <i class="fas fa-exclamation-triangle text-red-400 text-xl mr-2"></i>
+              <p class="text-red-300">{{ error }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating decorative elements -->
+      <div class="absolute bottom-10 right-10 w-12 h-12 bg-purple-500 rounded-full opacity-20 blur-xl pulse"></div>
+      <div class="absolute top-40 left-10 w-8 h-8 bg-blue-500 rounded-full opacity-20 blur-xl pulse" style="animation-delay: 1s;"></div>
+      <div class="absolute bottom-40 left-20 w-10 h-10 bg-indigo-500 rounded-full opacity-20 blur-xl pulse" style="animation-delay: 2s;"></div>
+    </div>
+  </div>
